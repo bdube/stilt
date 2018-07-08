@@ -1,3 +1,6 @@
+"""python -m stilt.project <path/to/project>
+
+"""
 import os
 import sys
 from pathlib import Path
@@ -21,14 +24,18 @@ _defaults = {
 def main(args):
     ppath = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else None
     if ppath is None:
-        sys.exit('error: need path')
+        sys.exit('error: specify project path')
+
     # Steps:
     #   1) Create project path
     #   2) Populate initial file content
     #   3) Initialize git
+
+    #   1) Create project path
     path_ = Path(ppath)
     path_.mkdir(**_defaults['mkdir'])
 
+    #   2) Populate initial file content
     try:
         response = requests.get(_defaults['python']['gitignore'])
         if response.status_code == 200 and response.encoding == 'utf-8':
@@ -41,6 +48,8 @@ def main(args):
     except Exception as e:
         print('error:', e, file=sys.stderr)
 
+    #   3) Initialize git
+    #      Install pre-commit?
     try:
         call('git init %(projectpath)s' %
              {'projectpath': path_})
