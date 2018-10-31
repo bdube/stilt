@@ -6,7 +6,7 @@ with open('README.md', 'r') as readme:
 
 setuptools.setup(
     name='stilt',
-    version='0.0.2',
+    version='0.0.3',
     author='Stilt Contributors',
     author_email='python.stilt@bdubeit.com',
     description='Python project configreator',
